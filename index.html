@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- Main Content -->
+  <div id="main-box" class="main">
+
+    <!--Mobile img-->
+    <img class="mobimg" src="assets/images/illustration-sign-up-mobile.svg" alt="">
+
+
+    <!-- Content Section -->
+    <div class="content">
+      <h1>Stay updated!</h1>
+      <p class="para">Join 60,000+ product managers receiving monthly updates on:</p>
+
+      <!-- Checklist -->
+      <div class="checklist">
+        <div class="checks">
+          <img src="assets/images/icon-list.svg" alt="Tick">
+          <p>Product discovery and building what matters</p>
+        </div>
+        <div class="checks">
+          <img src="assets/images/icon-list.svg" alt="Tick">
+          <p>Measuring to ensure updates are a success</p>
+        </div>
+        <div class="checks">
+          <img src="assets/images/icon-list.svg" alt="Tick">
+          <p>And much more!</p>
+        </div>
+      </div>
+
+      <!-- Newsletter Form -->
+      <form id="newsletter-form">
+        <label for="email">Email address</label>
+        <div class="input-container">
+          <span id="error-message" class="error-message">Valid email required</span>
+          <input type="text" id="email" name="email" placeholder="email@company.com">
+        </div>
+        <button type="submit">Subscribe to monthly newsletter</button>
+      </form>
+
+    </div>
+
+    <!-- Image -->
+    <img class="img" src="assets/images/illustration-sign-up-desktop.svg" alt="">
+  </div>
+
+  <!-- Thank You Box -->
+  <div id="confirmation-box" class="thank">
+    <img src="assets/images/icon-success.svg" alt="Tick">
+    <h1>Thanks for subscribing!</h1>
+    <p>A confirmation email has been sent to <span id="confirmed-email"></span>. Please open it and click the button inside to confirm your subscription.</p>
+    <button>Dismiss message</button>
+  </div>
+
+  <script>
+    const emailInput = document.getElementById('email');
+    const errorMessage = document.getElementById('error-message');
+    const form = document.getElementById('newsletter-form');
+    const confirmationBox = document.getElementById('confirmation-box');
+    const confirmedEmail = document.getElementById('confirmed-email');
+    const mainBox = document.getElementById('main-box');
+
+    // Form submission validation
+    form.addEventListener('submit', (e) => {
+      const emailValue = emailInput.value;
+
+      // Email validation regex
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+      if (!emailPattern.test(emailValue)) {
+        e.preventDefault(); // Prevent form submission
+        emailInput.classList.add('error');
+        errorMessage.style.display = 'block';
+      } else {
+        e.preventDefault(); // Prevent the default form submission to stay on the page
+
+        emailInput.classList.remove('error');
+        errorMessage.style.display = 'none';
+
+        // Hide main content and show confirmation
+        mainBox.classList.add('hidden');
+        confirmationBox.style.display = 'block';
+        confirmedEmail.textContent = emailValue;
+
+        // Clear the input field
+        emailInput.value = '';
+      }
+    });
+
+    // Reset error styling on user input
+    emailInput.addEventListener('input', () => {
+      emailInput.classList.remove('error');
+      errorMessage.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
